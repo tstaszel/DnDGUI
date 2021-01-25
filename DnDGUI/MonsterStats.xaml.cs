@@ -15,17 +15,16 @@ namespace DnDGUI
     /// </summary>
     public partial class MonsterStats : Window
     {
-        
         public List<Run> ColorWrite(string text)
         {
-            var alignColors = new[] { Green, White, Red };
+            var alignColors = new[] {Green, White, Red};
 
-            var posNegColors = new[] { Red, Green };
+            var posNegColors = new[] {Red, Green};
 
             //Regex will see [#blue] 
             //this will be case sensitive 
             List<(string, Brush)> stringCache = new()
-                { (text.Replace("\r", "").Replace("[#w]", "[#white]"), White) };
+                {(text.Replace("\r", "").Replace("[#w]", "[#white]"), White)};
             while (stringCache.Any(sc => Regex.IsMatch(sc.Item1, @"\[#(.+?)\]")))
             {
                 var outliers = stringCache.Where(sc => Regex.IsMatch(sc.Item1, @"\[#(.+?)\]")).ToArray();
@@ -41,22 +40,22 @@ namespace DnDGUI
                     stringCache.InsertRange(startIndex + 1, continueSplit[1..].Select(s => (s, splitColor)));
                 }
             }
+
             List<Run> runs = new();
             foreach (var (subtext, color) in stringCache)
             {
-                runs.Add(new Run(subtext) { Foreground = color });
+                runs.Add(new Run(subtext) {Foreground = color});
             }
 
             return runs;
         }
 
-        
 
-        public List<Run>  PrintEntity(Core.Entity entity)
+        public List<Run> PrintEntity(Core.Entity entity)
         {
-            var alignColors = new[] { Green, White, Red };
+            var alignColors = new[] {Green, White, Red};
 
-            var posNegColors = new[] { Red, Green };
+            var posNegColors = new[] {Red, Green};
             StringBuilder sb = new StringBuilder($@"[#darkmagenta]Entity Name[#w]:
 [#darkred]{entity.Name}[#w]
 [#darkmagenta]Entity Type[#w]: 
@@ -79,8 +78,8 @@ namespace DnDGUI
 
             sb.Append($"[#darkmagenta]Entity Alignment[#w]: \n");
             if (entity.Alignment.Item1 != Core.AlignmentType.Unaligned)
-                sb.Append($"[#{alignColors[(int)entity.Alignment.Item1]}]{entity.Alignment.Item1}" +
-                          $" [#{alignColors[(int)entity.Alignment.Item2]}]{entity.Alignment.Item2}[#w] \n");
+                sb.Append($"[#{alignColors[(int) entity.Alignment.Item1]}]{entity.Alignment.Item1}" +
+                          $" [#{alignColors[(int) entity.Alignment.Item2]}]{entity.Alignment.Item2}[#w] \n");
             else sb.Append($"[#gray]{entity.Alignment.Item1} \n");
 
             //Coloring Armor Class
@@ -106,7 +105,7 @@ namespace DnDGUI
             //Dictionary changes location from nth to string, changing key from int to something else
             //Lets us skip like 1, 4, 6, 9 
             Dictionary<string, Brush> statsColor = new()
-            { { "Str", Red }, { "Dex", Green }, { "Con", Yellow }, { "Int", Blue }, { "Wis", Cyan }, { "Cha", Magenta } };
+                {{"Str", Red}, {"Dex", Green}, {"Con", Yellow}, {"Int", Blue}, {"Wis", Cyan}, {"Cha", Magenta}};
             for (int i = 0; i < statsColor.Count; i++)
             {
                 var stat = statsColor.Keys.ToArray()[i];

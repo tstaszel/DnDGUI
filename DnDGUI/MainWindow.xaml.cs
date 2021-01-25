@@ -21,6 +21,7 @@ namespace DnDGUI
     public partial class MainWindow : Window
     {
         private List<Button> monsterButtons = new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,11 +31,21 @@ namespace DnDGUI
 
             foreach (var (name, data) in DataReader.EntityData)
             {
-                Button tempButton = new(){Content = name};
+                var tempname = name.Split(" ");
+                var listName = tempname.ToList();
+                var indexName = listName.IndexOf(listName.Find(s => s.Contains(":"))) + 1;
+                var beforename = String.Join(" ", tempname[..indexName]);
+                var aftername = String.Join(" ", tempname[(indexName + 1)..]);
+                Button tempButton = new() {Content = $"{beforename} [{tempname[indexName][0]}] {aftername.ToUpper()}"};
+
                 tempButton.Click += (_, _) => new MonsterStats(data);
                 monsterButtons.Add(tempButton);
             }
+        }
 
+        private void input_Click(object sender, RoutedEventArgs e)
+        {
+            DataReader.Save();
         }
     }
 }

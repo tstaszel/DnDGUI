@@ -21,5 +21,9 @@
         </Grid.RowDefinitions>
 
         <ListView Grid.Row="1" Grid.Column="1" Background="Transparent" Name="monsterDisplay"/>
+        <ListView Grid.Row="1" Grid.Column="2" Background="DeepSkyBlue" Name="exraButtons">
+            <Button Name="input" Content="Save Copy" Width="auto" MinWidth="75px" Margin="2px 1 2px 1" Click="input_Click"/>
+            <Button Name="load" Content="Load Content" Width="auto" MinWidth="75px" Margin="2px 1 2px 1 "/>
+        </ListView>
     </Grid>
 </Window>

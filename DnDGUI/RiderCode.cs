@@ -75,6 +75,7 @@ namespace DnDGUI
             if (CheckDir(coreDir) && CheckDir($"{coreDir}/MonsterData.json"))
             {
                 using var sr = new StreamReader($"{coreDir}/MonsterData.json");
+                //ToDo: make some form of auto ordering / alphabetize 
                 EntityData = JsonConvert.DeserializeObject<Dictionary<string, Core.Entity>>(sr.ReadToEnd());
                 sr.Close();
             }
